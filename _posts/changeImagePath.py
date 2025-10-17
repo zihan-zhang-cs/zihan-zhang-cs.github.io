@@ -37,34 +37,43 @@ if not modified_md_files:
     print("No modified md files found, exit script.")
     exit()
 
+# 将修改文件的路径转换为相对路径，便于匹配
+modified_md_files = [os.path.relpath(file, directory)
+                     for file in modified_md_files]
+
 # 遍历目录下所有的md文件
 for root, dirs, files in os.walk(directory):
     for file in files:
-        if file.endswith(".md") and os.path.join(root, file) in modified_md_files:
+        if file.endswith(".md"):
             file_path = os.path.join(root, file)
+            # 转换为相对路径
+            relative_file_path = os.path.relpath(file_path, directory)
 
-            # 获取当前文件所在的子目录（去掉根目录部分）
-            subdirectory = os.path.relpath(root, directory)
+            # 仅处理修改过的md文件
+            if relative_file_path in modified_md_files:
+                print(file_path)
+                # 获取当前文件所在的子目录（去掉根目录部分）
+                subdirectory = os.path.relpath(root, directory)
 
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
 
-            # 使用正则表达式查找符合格式的图片链接，并替换为新的URL
-            new_content = re.sub(
-                r'!\[([^\]]+)\]\(\./([^\)]+)\)',  # 查找 ./<任何路径>/<图片名> 的格式
-                lambda m: f'![{m.group(1)}](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/{subdirectory}/{m.group(2)})?raw=true',
-                content
-            )
+                # 使用正则表达式查找符合格式的图片链接，并替换为新的URL
+                new_content = re.sub(
+                    r'!\[([^\]]+)\]\(\./([^\)]+)\)',  # 查找 ./<任何路径>/<图片名> 的格式
+                    lambda m: f'![{m.group(1)}](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/{subdirectory}/{m.group(2)}?raw=true)',
+                    content
+                )
 
-            # 如果内容有变化，则写回文件，并添加时间水印
-            if new_content != content:
-                # 获取当前时间水印
-                timestamp = get_current_timestamp()
+                # 如果内容有变化，则写回文件，并添加时间水印
+                if new_content != content:
+                    # 获取当前时间水印
+                    timestamp = get_current_timestamp()
 
-                # 将时间水印添加到文件末尾
-                new_content += f"\n\n上传于 {timestamp}"
+                    # 将时间水印添加到文件末尾
+                    new_content += f"\n\n上传于 {timestamp}"
 
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
+                    with open(file_path, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
 
 print("Replace image links in modified md files successfully, and add timestamp watermark.")
