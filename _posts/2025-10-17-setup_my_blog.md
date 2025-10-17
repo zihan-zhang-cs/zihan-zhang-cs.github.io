@@ -22,15 +22,15 @@ tags:
 
 点击[此处](https://github.com/Huxpro/huxpro.github.io)打开Hux Blog项目，点击Fork。Fork的仓库务必以```<本账户ID>.github.io```命名，如```zihan-zhang-cs.github.io```。
 
-![image-20251017161146938](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/assets/image-20251017161146938.png?raw=true)
+![image-20251017161146938](./assets/image-20251017161146938.png)
 
 你可以在此处查看你的ID
 
-![image-20251017161524470](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/assets/image-20251017161524470.png?raw=true)
+![image-20251017161524470](./assets/image-20251017161524470.png)
 
 打开你自己的仓库，依次点击这两个按钮获取项目的https地址。
 
-![image-20251017162359841](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/assets/image-20251017162359841.png?raw=true)
+![image-20251017162359841](./assets/image-20251017162359841.png)
 
 在本地执行```git clone <复制内容>```将代码拉取到本地。
 
@@ -45,6 +45,7 @@ tags:
 ```bash
 @echo off
 REM 自动提交并推送更改脚本
+python _posts\changeImagePath.py
 
 REM 添加所有更改
 git add .
@@ -58,7 +59,6 @@ git push origin master
 REM 提示推送完成
 echo push success!
 pause
-
 ```
 
-将其以bat格式保存到本地仓库的根目录下，发布博客后续只需要将md文件放到_post```目录下然后执行本脚本即可。
+将其以bat格式保存到本地仓库的根目录下，发布博客后续只需要将md文件放到```_post```目录下然后执行本脚本即可。
