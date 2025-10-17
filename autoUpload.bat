@@ -1,5 +1,6 @@
 @echo off
 REM 自动提交并推送更改脚本
+python _posts\changeImagePath.py
 
 REM 添加所有更改
 git add .
