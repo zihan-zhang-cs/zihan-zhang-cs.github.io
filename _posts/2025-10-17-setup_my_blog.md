@@ -22,15 +22,15 @@ tags:
 
 点击[此处](https://github.com/Huxpro/huxpro.github.io)打开Hux Blog项目，点击Fork。Fork的仓库务必以```<本账户ID>.github.io```命名，如```zihan-zhang-cs.github.io```。
 
-![image-20251017161146938](./assets/image-20251017161146938.png)
+![image-20251017161146938](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/assets/image-20251017161146938.png?raw=true)
 
 你可以在此处查看你的ID
 
-![image-20251017161524470](./assets/image-20251017161524470.png)
+![image-20251017161524470](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/assets/image-20251017161524470.png?raw=true)
 
 打开你自己的仓库，依次点击这两个按钮获取项目的https地址。
 
-![image-20251017162359841](./assets/image-20251017162359841.png)
+![image-20251017162359841](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/assets/image-20251017162359841.png?raw=true)
 
 在本地执行```git clone <复制内容>```将代码拉取到本地。
 
