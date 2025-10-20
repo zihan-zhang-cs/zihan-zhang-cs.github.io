@@ -1,10 +1,27 @@
+---
+layout: post
+title: "OpenWhisk的调度策略"
+subtitle: "容器池与Invoker选择策略"
+author: "Zihan Zhang"
+header-style: text
+tags:
+  - 主线任务
+  - OpenWhisk
+  - 调度策略
+
+---
+
+### 声明
+
+由于本人能力问题，本文可能存在不严谨、不准确等问题，如有读者发现，欢迎发送邮件至zhangzihan.cs@gmail.com或在GitHub中对[本项目](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io)发起issue。如果本篇文章帮助了你，欢迎点赞、收藏、star。
+
 # OpenWhisk的调度策略
 
 ## 1. OpenWhisk总述
 
 Apache OpenWhisk 是一个开源的分布式无服务器平台，可以执行函数来响应各种规模的事件。项目的GitHub地址为：```https://github.com/apache/openwhisk```。该平台使用 Docker 容器管理基础设施、服务器和扩展。OpenWhisk的核心架构如下：
 
-![image-20251020104612202](./assets/image-20251020104612202.png)
+![image-20251020104612202](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/./assets/image-20251020104612202.png?raw=true)
 
 开发者基于OpenWhisk开发的项目中的代码和数据储持久化存储于[Apache CouchDB](https://couchdb.apache.org/)中。
 
@@ -16,7 +33,7 @@ Apache OpenWhisk 是一个开源的分布式无服务器平台，可以执行函
 
 OpenWhisk维护三个容器池，分别为空闲池（freePool）、忙碌池（busyPool）和预热池（prewarmPool）<sup><a href="#ref1">[1]</a></sup>。
 
-![image-20251020143405274](./assets/image-20251020143405274.png)
+![image-20251020143405274](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/./assets/image-20251020143405274.png?raw=true)
 
 ### 2.1 预热池
 
@@ -75,13 +92,13 @@ container-pool {
 
    - 或因 timeout、内存不足等被销毁<sup><a href="#ref1">[1]</a></sup>。
 
-![image-20251020144836265](./assets/image-20251020144836265.png)
+![image-20251020144836265](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/./assets/image-20251020144836265.png?raw=true)
 
 ### 3.2 invoker选择策略
 
 Controller选择invoker的方式是为每个函数计算哈希值并确定一个步长，步长与invoker的数量互质。最初Controller以函数的哈希值确认其初始invoker（homeInvoker），如果该Invoker无多余资源，则Controller根据步长将选择下一个Invoker<sup><a href="#ref2">[2]</a></sup>。该方法保证相同函数尽量调度到相同 invoker，增加缓存命中率，减少冷启动。
 
-![image-20251020150007532](./assets/image-20251020150007532.png)
+![image-20251020150007532](https://github.com/zihan-zhang-cs/zihan-zhang-cs.github.io/blob/master/_posts/./assets/image-20251020150007532.png?raw=true)
 
 Invoker详细的选择策略可以通过代码```https://github.com/apache/openwhisk/blob/master/core/controller/src/main/scala/org/apache/openwhisk/core/loadBalancer/ShardingContainerPoolBalancer.scala```查看。
 
@@ -92,3 +109,5 @@ ___
 <div><a name="ref1"></a>[1] Apache OpenWhisk Developers. (2018, May 25). OpenWhisk scheduling proposal [Technical design document]. Apache Software Foundation. Retrieved from https://cwiki.apache.org/confluence/download/attachments/85466849/OW_new_scheduling_proposal_180525.pdf</div>
 
 <div><a name="ref2"></a>[2] Zuk, P. (2023). Resource allocation methods for serverless cloud computing platforms[PhD dissertation]. University of Warsaw, Faculty of Mathematics, Informatics and Mechanics.</div>
+
+上传于 2025-10-20 15:38:34
